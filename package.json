@@ -1,15 +1,27 @@
 {
-  "name": "rota-bot",
-  "version": "0.0.1",
-  "description": "A Slack bot that sends reminders to people on a rota.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "slack",
-    "rota"
-  ],
-  "author": "Joshua Rose",
-  "license": "ISC"
+    "name": "rota-bot",
+    "version": "0.0.1",
+    "description": "A Slack bot that sends reminders to people on a rota.",
+    "main": "index.js",
+    "scripts": {
+        "start": "npm run build:live",
+        "build": "tsc -p .",
+        "build:live": "nodemon --watch 'src/**/*.ts' --exec ts-node src/app.ts",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "slack",
+        "rota"
+    ],
+    "author": "Joshua Rose",
+    "license": "ISC",
+    "dependencies": {
+        "@slack/bolt": "^1.2.0"
+    },
+    "devDependencies": {
+        "@types/node": "^12.7.2",
+        "nodemon": "^1.19.1",
+        "ts-node": "^8.3.0",
+        "typescript": "^3.5.3"
+    }
 }
