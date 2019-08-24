@@ -1,0 +1,15 @@
+{
+  "name": "rota-bot",
+  "version": "0.0.1",
+  "description": "A Slack bot that sends reminders to people on a rota.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "slack",
+    "rota"
+  ],
+  "author": "Joshua Rose",
+  "license": "ISC"
+}
