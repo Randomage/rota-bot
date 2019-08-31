@@ -19,7 +19,8 @@
     "author": "Joshua Rose",
     "license": "ISC",
     "dependencies": {
-        "@slack/bolt": "^1.2.0"
+        "@slack/events-api": "^2.3.0",
+        "@slack/web-api": "^5.1.0"
     },
     "devDependencies": {
         "@azure/functions": "^1.0.3",
