@@ -1,5 +1,3 @@
-import { post } from "request-promise-native";
-
 interface AppMentionEvent {
     type: "app_mention";
     text: string;
@@ -9,30 +7,15 @@ interface AppMentionEvent {
     username: string;
 }
 
-export const appMention = async (event: AppMentionEvent, token: string) => {
-    const response = {
+export const appMention = (event: AppMentionEvent): PostMessage | NoAction => {
+    if (event.username === "RotaBot") {
+        return { type: "noAction" };
+    }
+
+    return {
+        type: "postMessage",
         channel: event.channel,
         text: `I got your message:
 > ${event.text}`
     };
-
-    try {
-        if (event.username === "RotaBot") {
-            return;
-        }
-
-        const result = await post("https://slack.com/api/chat.postMessage", {
-            headers: { "Content-type": "application/json; charset=UTF-8", Authorization: `Bearer ${token}` },
-            body: response,
-            json: true
-        });
-
-        if (result.ok === false) {
-            throw result;
-        }
-
-        return result;
-    } catch (e) {
-        console.log("Failed to POST: ", e);
-    }
 };

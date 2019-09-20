@@ -10,7 +10,7 @@
         "build:production": "npm run prestart && npm prune --production",
         "build": "tsc -p .",
         "watch": "nodemon --watch 'src/**/*.ts' --exec ts-node src/app.ts",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "jest .*?\\.test\\.ts"
     },
     "keywords": [
         "slack",
@@ -20,16 +20,26 @@
     "license": "ISC",
     "dependencies": {
         "@slack/events-api": "^2.3.0",
-        "@slack/web-api": "^5.1.0",
-        "@types/request-promise-native": "^1.0.16",
-        "request": "^2.88.0",
-        "request-promise-native": "^1.0.7"
+        "@slack/web-api": "^5.1.0"
     },
     "devDependencies": {
         "@azure/functions": "^1.0.3",
+        "@babel/core": "*",
+        "@babel/preset-env": "*",
+        "@babel/preset-typescript": "*",
+        "@types/jest": "*",
         "@types/node": "^12.7.2",
+        "babel-jest": "*",
+        "jest": "^24.9.0",
         "nodemon": "^1.19.1",
+        "riteway": "^6.1.0",
+        "riteway-jest": "^1.1.0",
         "ts-node": "^8.3.0",
         "typescript": "^3.5.3"
+    },
+    "jest": {
+        "setupFilesAfterEnv": [
+            "riteway-jest/assert"
+        ]
     }
 }

@@ -1,5 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 
+import { WebClient } from "@slack/web-api";
+import { handleAction } from "../handle-action";
 import { handleEvent } from "./handle-event";
 import { urlVerification } from "./url-verification";
 
@@ -8,9 +10,13 @@ const httpTrigger: AzureFunction = async function(context: Context, req: HttpReq
         throw Error("No token defined");
     }
 
+    const doAction = handleAction(new WebClient(process.env.SLACK_BOT_TOKEN));
+
     switch (req.body.type) {
         case "event_callback":
-            return await handleEvent(req.body.event, process.env.SLACK_BOT_TOKEN);
+            const action = handleEvent(req.body.event);
+            await doAction(action);
+            return;
 
         case "url_verification":
             return urlVerification(req);
