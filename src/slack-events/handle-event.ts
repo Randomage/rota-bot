@@ -1,10 +1,16 @@
-import { appMention } from "./app-mention";
+export interface HandledEvent {
+    handled: true;
+    action: Action;
+}
 
-export const handleEvent = (event: any): Action => {
-    switch (event.type) {
-        case "app_mention":
-            return appMention(event);
-    }
+export interface UnhandledEvent {
+    handled: false;
+}
 
-    return { type: "noAction" };
+export type EventResult = HandledEvent | UnhandledEvent;
+
+export const handleEvent = (eventHandlers: EventHandler[]) => (event: any): EventResult => {
+    const match = eventHandlers.find(h => h.eventName === event.type);
+
+    return match ? { handled: true, action: match.handler(event) } : { handled: false };
 };

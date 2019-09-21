@@ -1,14 +1,25 @@
-import { WebClient } from "@slack/web-api";
+import { WebAPICallResult, WebClient } from "@slack/web-api";
 
-export const handleAction = (webClient: WebClient) => async (action: Action) => {
+interface SucceededAction {
+    success: true;
+    result: WebAPICallResult;
+}
+
+interface SucceededVoidAction {
+    success: true;
+}
+
+export type ActionResult = SucceededAction | SucceededVoidAction;
+
+export const handleAction = (webClient: WebClient) => async (action: Action): Promise<ActionResult> => {
     switch (action.type) {
         case "noAction":
-            return;
+            return { success: true };
 
         case "postMessage":
-            return await webClient.chat.postMessage({ channel: action.channel, text: action.text });
+            return {
+                success: true,
+                result: await webClient.chat.postMessage({ channel: action.channel, text: action.text })
+            };
     }
 };
-
-export const handleActions = (webClient: WebClient, actions: Action[]) =>
-    Promise.all(actions.map(handleAction(webClient)));

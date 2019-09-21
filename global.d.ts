@@ -1,4 +1,4 @@
-import { assert } from "riteway";
+import { Assertion, assert } from "riteway-jest";
 
 declare global {
     const assert: assert;

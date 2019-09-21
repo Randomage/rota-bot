@@ -1,6 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 
 import { WebClient } from "@slack/web-api";
+import { appMention } from "./app-mention";
 import { handleAction } from "../handle-action";
 import { handleEvent } from "./handle-event";
 import { urlVerification } from "./url-verification";
@@ -14,8 +15,11 @@ const httpTrigger: AzureFunction = async function(context: Context, req: HttpReq
 
     switch (req.body.type) {
         case "event_callback":
-            const action = handleEvent(req.body.event);
-            await doAction(action);
+            const result = handleEvent([appMention])(req.body.event);
+
+            if (result.handled) {
+                await doAction(result.action);
+            }
             return;
 
         case "url_verification":

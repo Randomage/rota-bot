@@ -10,7 +10,7 @@
         "build:production": "npm run prestart && npm prune --production",
         "build": "tsc -p .",
         "watch": "nodemon --watch 'src/**/*.ts' --exec ts-node src/app.ts",
-        "test": "jest .*?\\.test\\.ts"
+        "test": "jest .*?\\.test\\.ts --watch"
     },
     "keywords": [
         "slack",
@@ -19,12 +19,14 @@
     "author": "Joshua Rose",
     "license": "ISC",
     "dependencies": {
+        "@babel/runtime": "^7.6.0",
         "@slack/events-api": "^2.3.0",
         "@slack/web-api": "^5.1.0"
     },
     "devDependencies": {
         "@azure/functions": "^1.0.3",
         "@babel/core": "*",
+        "@babel/plugin-transform-runtime": "^7.6.0",
         "@babel/preset-env": "*",
         "@babel/preset-typescript": "*",
         "@types/jest": "*",
@@ -33,7 +35,7 @@
         "jest": "^24.9.0",
         "nodemon": "^1.19.1",
         "riteway": "^6.1.0",
-        "riteway-jest": "^1.1.0",
+        "riteway-jest": "file:../riteway-jest",
         "ts-node": "^8.3.0",
         "typescript": "^3.5.3"
     },

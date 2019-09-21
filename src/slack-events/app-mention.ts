@@ -7,7 +7,7 @@ interface AppMentionEvent {
     username: string;
 }
 
-export const appMention = (event: AppMentionEvent): PostMessage | NoAction => {
+const appMentionHandler = (event: AppMentionEvent): Action => {
     if (event.username === "RotaBot") {
         return { type: "noAction" };
     }
@@ -18,4 +18,9 @@ export const appMention = (event: AppMentionEvent): PostMessage | NoAction => {
         text: `I got your message:
 > ${event.text}`
     };
+};
+
+export const appMention = {
+    eventName: "app_mention",
+    handler: appMentionHandler
 };
